@@ -1,0 +1,1 @@
+First contact with functional programming using Racket as a learning tool
