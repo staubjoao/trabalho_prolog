@@ -2,7 +2,7 @@
 Este repositório contém o trabalho prático 2, um sistema de diagnóstico médico em PROLOG, curso de Ciência da Computação.
 
 ### Integrantes
-João Vitor Staub Castanho ra: 117174)
+João Vitor Staub Castanho ra: 117174
 
 Vitor Augusto Greff ra: 118926
 
