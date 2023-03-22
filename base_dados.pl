@@ -110,3 +110,35 @@ probabilidade_doenca(Doenca, Sintomas, ProbBase, ProbFinal) :-
     intersection(ListaSintomasDoenca, Sintomas, SintomasComuns),
     length(SintomasComuns, NumSintomasComuns),
     ProbFinal is (NumSintomasComuns/NumSintomas) * ProbBase.
+
+% Arquivos
+escrever_arquivo_prolog(NomeArquivo, Nome, Idade, Peso, Altura) :-
+    open(NomeArquivo, append, Stream),
+    write(Stream, 'paciente('),
+    write(Stream, Nome),
+    write(Stream, ','),
+    write(Stream, Idade),
+    write(Stream, ','),
+    write(Stream, Peso),
+    write(Stream, ','),
+    write(Stream, Altura),
+    write(Stream, ').\n'),
+    close(Stream).
+
+% Predicado para ler o arquivo de texto e armazenar as informações dos pacientes em uma lista
+ler_arquivo(NomeArquivo, Pacientes) :-
+    open(NomeArquivo, read, Arquivo),
+    ler_linhas(Arquivo, Pacientes),
+    close(Arquivo).
+
+% Predicado auxiliar para ler as linhas do arquivo e criar a lista de pacientes
+ler_linhas(Arquivo, []) :-
+    at_end_of_stream(Arquivo).
+ler_linhas(Arquivo, [Paciente|Pacientes]) :-
+    read(Arquivo, Paciente),
+    ler_linhas(Arquivo, Pacientes).
+
+
+buscar_paciente(Nome, Pacientes, Idade, Peso, Altura) :-
+    member(Paciente(Nome, Idade, Peso, Altura), Pacientes).
+
