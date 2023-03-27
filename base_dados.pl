@@ -1,3 +1,15 @@
+% probabilidade base para cada doença
+ProbBase_celiaca(0.01).
+ProbBase_sili(0.05).
+ProbBase_alergia_alimentar(0.02).
+ProbBase_intoxicacao_alimentar(0.10).
+ProbBase_gastroenterite_viral(0.15).
+ProbBase_dumping(0.03).
+ProbBase_gastroparesia(0.01).
+ProbBase_ulcera_peptica(0.05).
+ProbBase_pancreatite(0.02).
+ProbBase_infeccao_trato_urinario(0.01).
+
 % sintomas da doença celíaca
 sintoma_celiaca(dor_abdominal).
 sintoma_celiaca(inchaco_abdominal).
@@ -139,6 +151,91 @@ ler_linhas(Arquivo, [Paciente|Pacientes]) :-
     ler_linhas(Arquivo, Pacientes).
 
 
-buscar_paciente(Nome, Pacientes, Idade, Peso, Altura) :-
-    member(Paciente(Nome, Idade, Peso, Altura), Pacientes).
+% Predicado para buscar os atributos de um paciente dado o seu nome
+buscar_paciente(Nome, [paciente(Nome, Idade, Peso, Altura)|_], Idade, Peso, Altura).
+buscar_paciente(Nome, [_|Resto], Idade, Peso, Altura) :-
+    buscar_paciente(Nome, Resto, Idade, Peso, Altura).
+
+% consulta/alteração/inclusão/exclusão de pacientes
+menu :-
+    writeln('1 - Consultar pacientes'),
+    writeln('2 - Incluir paciente'),
+    writeln('3 - Alterar paciente'),
+    writeln('4 - Excluir paciente'),
+    writeln('5 - Sair'),
+    write('Opcao: '),
+    read(Opcao),
+    opcao_menu(Opcao).
+
+opcao_menu(1):-
+    ler_arquivo(pacientes, Pacientes),
+    writeln(Pacientes).
+
+opcao_menu(2):-
+    write('Nome do novo paciente: '),
+    read(Nome),
+    write('Idade do novo paciente: '),
+    read(Idade),
+    write('Peso do novo paciente: '),
+    read(Peso),
+    write('Altura do novo paciente: '),
+    read(Altura),
+    escrever_arquivo_prolog(pacientes, Nome, Idade, Peso, Altura),
+    writeln('Novo paciente adicionado com sucesso!').
+
+opcao_menu(3):-
+    write('OII').
+
+opcao_menu(4):-
+    write('OII').
+
+opcao_menu(5):-
+     write('Saindo...').
+
+% apagar_paciente(Nome) :-
+%     % Abrir o arquivo original para leitura
+%     open('pacientes', read, ArquivoOriginal),
+%     % Criar um arquivo temporário para escrita
+%     open('pacientes_temp', write, ArquivoTemp),
+%     % Ler cada linha do arquivo original e verificar se ela contém o paciente a ser excluído
+%     apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado),
+%     % Fechar os arquivos original e temporário
+%     close(ArquivoOriginal),
+%     close(ArquivoTemp),
+%     % Se o paciente não foi encontrado, não renomear o arquivo temporário
+%     (Encontrado ->
+%         % Apagar o arquivo original e renomear o arquivo temporário para o nome do arquivo original
+%         delete_file('pacientes'),
+%         rename_file('pacientes_temp', 'pacientes')
+%     ;
+%         % Apagar o arquivo temporário
+%         delete_file('pacientes_temp')
+%     ).
+
+% apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado) :-
+%     % Ler a próxima linha do arquivo original
+%     read_line_to_codes(ArquivoOriginal, Linha),
+%     % Se a linha não for vazia (EOF), processá-la
+%     (Linha \= end_of_file ->
+%         % Converter a linha em formato de string
+%         atom_codes(AtomLinha, Linha),
+%         % Transformar a string em termo Prolog
+%         term_to_atom(Paciente, AtomLinha),
+%         % Verificar se o termo contém o paciente a ser excluído
+%         (Paciente = paciente(Nome, _, _, _) ->
+%             % Se o termo contém o paciente a ser excluído, marcar como encontrado e não copiar a linha para o arquivo temporário
+%             Encontrado = true
+%         ;
+%             % Se o termo não contém o paciente a ser excluído, copiar a linha para o arquivo temporário
+%             write(ArquivoTemp, Linha),
+%             write(ArquivoTemp, '\n')
+%         ),
+%         % Chamar recursivamente a função para processar a próxima linha
+%         apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado)
+%     ;
+%         % Se a linha for vazia (EOF), terminar o processamento
+%         Encontrado = false
+%     ).
+
+
 

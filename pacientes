@@ -1,2 +1,4 @@
-paciente(vitor,20,60,170).
-paciente(joao,20,60,180).
+paciente(guru,20,30,170).
+paciente(vitor,20,30,170).
+
+
