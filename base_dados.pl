@@ -1,14 +1,14 @@
 % probabilidade base para cada doença
-ProbBase_celiaca(0.01).
-ProbBase_sili(0.05).
-ProbBase_alergia_alimentar(0.02).
-ProbBase_intoxicacao_alimentar(0.10).
-ProbBase_gastroenterite_viral(0.15).
-ProbBase_dumping(0.03).
-ProbBase_gastroparesia(0.01).
-ProbBase_ulcera_peptica(0.05).
-ProbBase_pancreatite(0.02).
-ProbBase_infeccao_trato_urinario(0.01).
+probBase_celiaca(0.01).
+probBase_sili(0.05).
+probBase_alergia_alimentar(0.02).
+probBase_intoxicacao_alimentar(0.10).
+probBase_gastroenterite_viral(0.15).
+probBase_dumping(0.03).
+probBase_gastroparesia(0.01).
+probBase_ulcera_peptica(0.05).
+probBase_pancreatite(0.02).
+probBase_infeccao_trato_urinario(0.01).
 
 % sintomas da doença celíaca
 sintoma_celiaca(dor_abdominal).
@@ -25,15 +25,15 @@ sintoma_celiaca(erupcoes_cutaneas).
 sintoma_celiaca(irritabilidade).
 
 % sintomas da síndrome do intestino irritável
-sintoma_sii(dor_abdominal).
-sintoma_sii(inchaco_abdominal).
-sintoma_sii(constipacao).
-sintoma_sii(diarreia).
-sintoma_sii(mucosidade_nas_fezes).
-sintoma_sii(sensacao_de_incompleto_esvaziamento_do_intestino).
-sintoma_sii(fadiga).
-sintoma_sii(ansiedade).
-sintoma_sii(depressao).
+sintoma_sili(dor_abdominal).
+sintoma_sili(inchaco_abdominal).
+sintoma_sili(constipacao).
+sintoma_sili(diarreia).
+sintoma_sili(mucosidade_nas_fezes).
+sintoma_sili(sensacao_de_incompleto_esvaziamento_do_intestino).
+sintoma_sili(fadiga).
+sintoma_sili(ansiedade).
+sintoma_sili(depressao).
 
 % sintomas de alergias alimentares
 sintoma_alergia_alimentar(coceira_na_boca).
@@ -123,6 +123,36 @@ probabilidade_doenca(Doenca, Sintomas, ProbBase, ProbFinal) :-
     length(SintomasComuns, NumSintomasComuns),
     ProbFinal is (NumSintomasComuns/NumSintomas) * ProbBase.
 
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_celiaca, Sintomas, probBase_celiaca, ProbFinal).
+
+probabilidade_sili(Sintomas) :-
+    probabilidade_doenca(sintoma_sili, Sintomas, probBase_sili, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_alergia_alimentar, Sintomas, probBase_alergia_alimentar, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_intoxicacao_alimentar, Sintomas, probBase_intoxicacao_alimentar, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_gastroenterite_viral, Sintomas, probBase_gastroenterite_viral, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_sindrome_de_dumping, Sintomas, probBase_dumping, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_gastroparesia, Sintomas, probBase_gastroparesia, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_ulcera_peptica Sintomas, probBase_ulcera_peptica, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_pancreatite, Sintomas, probBase_pancreatite, ProbFinal).
+
+probabilidade_celiaca(Sintomas) :-
+    probabilidade_doenca(sintoma_infeccao_do_trato_urinario, Sintomas, probBase_infeccao_trato_urinario, ProbFinal).
+
 % Arquivos
 escrever_arquivo_prolog(NomeArquivo, Nome, Idade, Peso, Altura) :-
     open(NomeArquivo, append, Stream),
@@ -184,7 +214,7 @@ opcao_menu(2):-
     writeln('Novo paciente adicionado com sucesso!').
 
 opcao_menu(3):-
-    write('OII').
+    editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura),
 
 opcao_menu(4):-
     write('OII').
@@ -236,6 +266,8 @@ opcao_menu(5):-
 %         % Se a linha for vazia (EOF), terminar o processamento
 %         Encontrado = false
 %     ).
+
+
 
 
 
