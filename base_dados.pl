@@ -1,115 +1,3 @@
-% probabilidade base para cada doença
-probBase_celiaca(0.01).
-probBase_sili(0.05).
-probBase_alergia_alimentar(0.02).
-probBase_intoxicacao_alimentar(0.10).
-probBase_gastroenterite_viral(0.15).
-probBase_dumping(0.03).
-probBase_gastroparesia(0.01).
-probBase_ulcera_peptica(0.05).
-probBase_pancreatite(0.02).
-probBase_infeccao_trato_urinario(0.01).
-
-% sintomas da doença celíaca
-sintoma_celiaca(dor_abdominal).
-sintoma_celiaca(inchaco_abdominal).
-sintoma_celiaca(diarreia).
-sintoma_celiaca(constipacao).
-sintoma_celiaca(nausea).
-sintoma_celiaca(vomito).
-sintoma_celiaca(perda_de_peso).
-sintoma_celiaca(fadiga).
-sintoma_celiaca(anemia).
-sintoma_celiaca(dores_nas_articulacoes).
-sintoma_celiaca(erupcoes_cutaneas).
-sintoma_celiaca(irritabilidade).
-
-% sintomas da síndrome do intestino irritável
-sintoma_sili(dor_abdominal).
-sintoma_sili(inchaco_abdominal).
-sintoma_sili(constipacao).
-sintoma_sili(diarreia).
-sintoma_sili(mucosidade_nas_fezes).
-sintoma_sili(sensacao_de_incompleto_esvaziamento_do_intestino).
-sintoma_sili(fadiga).
-sintoma_sili(ansiedade).
-sintoma_sili(depressao).
-
-% sintomas de alergias alimentares
-sintoma_alergia_alimentar(coceira_na_boca).
-sintoma_alergia_alimentar(coceira_na_garganta).
-sintoma_alergia_alimentar(urinacao_frequente).
-sintoma_alergia_alimentar(diarreia).
-sintoma_alergia_alimentar(dificuldade_respiratoria).
-sintoma_alergia_alimentar(vomito).
-sintoma_alergia_alimentar(vermelhidao_na_pele).
-sintoma_alergia_alimentar(inchaco_na_face).
-
-% sintomas de intoxicação alimentar
-sintoma_intoxicacao_alimentar(diarreia).
-sintoma_intoxicacao_alimentar(vomito).
-sintoma_intoxicacao_alimentar(dor_abdominal).
-sintoma_intoxicacao_alimentar(nausea).
-sintoma_intoxicacao_alimentar(febril).
-sintoma_intoxicacao_alimentar(fraqueza).
-sintoma_intoxicacao_alimentar(dor_de_cabeca).
-sintoma_intoxicacao_alimentar(mal_estar_geral).
-
-% sintomas de gastroenterite viral
-sintoma_gastroenterite_viral(diarreia).
-sintoma_gastroenterite_viral(vomito).
-sintoma_gastroenterite_viral(nausea).
-sintoma_gastroenterite_viral(dor_abdominal).
-sintoma_gastroenterite_viral(febre).
-sintoma_gastroenterite_viral(mal_estar_geral).
-sintoma_gastroenterite_viral(dor_muscular).
-sintoma_gastroenterite_viral(fadiga).
-
-% Síndrome de dumping
-sintoma_sindrome_de_dumping(sudorese).
-sintoma_sindrome_de_dumping(palpitacao).
-sintoma_sindrome_de_dumping(tontura).
-sintoma_sindrome_de_dumping(desmaio).
-sintoma_sindrome_de_dumping(diarreia).
-sintoma_sindrome_de_dumping(nausea).
-sintoma_sindrome_de_dumping(vomito).
-sintoma_sindrome_de_dumping(dor_abdominal).
-sintoma_sindrome_de_dumping(pirose).
-
-% Gastroparesia
-sintoma_gastroparesia(saciedade_precoce).
-sintoma_gastroparesia(nausea).
-sintoma_gastroparesia(vomito).
-sintoma_gastroparesia(dor_abdominal).
-sintoma_gastroparesia(perda_de_peso).
-sintoma_gastroparesia(diarreia).
-sintoma_gastroparesia(constipacao).
-sintoma_gastroparesia(distensao_abdominal).
-
-% Úlcera péptica
-sintoma_ulcera_peptica(dor_abdominal).
-sintoma_ulcera_peptica(queimacao).
-sintoma_ulcera_peptica(nausea).
-sintoma_ulcera_peptica(vomito).
-sintoma_ulcera_peptica(perda_de_apetite).
-sintoma_ulcera_peptica(perda_de_peso).
-
-% Pancreatite
-sintoma_pancreatite(dor_abdominal).
-sintoma_pancreatite(nausea).
-sintoma_pancreatite(vomito).
-sintoma_pancreatite(perda_de_apetite).
-sintoma_pancreatite(pancreatite_cronica).
-sintoma_pancreatite(diabetes).
-
-% Infecção do trato urinário
-sintoma_infeccao_do_trato_urinario(dor_ao_urinar).
-sintoma_infeccao_do_trato_urinario(aumento_da_frequencia_urinaria).
-sintoma_infeccao_do_trato_urinario(urgencia_urinaria).
-sintoma_infeccao_do_trato_urinario(sangue_na_urina).
-sintoma_infeccao_do_trato_urinario(dor_abdominal).
-sintoma_infeccao_do_trato_urinario(febre).
-
 % conta a quantidade de sintomas associados a uma doença
 num_sintomas_doenca(Doenca, Count) :-
     findall(Sintoma, call(Doenca, Sintoma), ListaSintomas),
@@ -124,34 +12,42 @@ probabilidade_doenca(Doenca, Sintomas, ProbBase, ProbFinal) :-
     ProbFinal is (NumSintomasComuns/NumSintomas) * ProbBase.
 
 probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_celiaca, Sintomas, probBase_celiaca, ProbFinal).
+    probabilidade_doenca(sintoma_celiaca, Sintomas, probBase_celiaca(P) , ProbFinal).
 
 probabilidade_sili(Sintomas) :-
-    probabilidade_doenca(sintoma_sili, Sintomas, probBase_sili, ProbFinal).
+    P = probBase_sili,
+    probabilidade_doenca(sintoma_sili, Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_alergia_alimentar, Sintomas, probBase_alergia_alimentar, ProbFinal).
+probabilidade_alergia_alimentar(Sintomas) :-
+    P = probBase_alergia_alimentar,
+    probabilidade_doenca(sintoma_alergia_alimentar, Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_intoxicacao_alimentar, Sintomas, probBase_intoxicacao_alimentar, ProbFinal).
+probabilidade_intoxicacao_alimentar(Sintomas) :-
+    P = probBase_intoxicacao_alimentar,
+    probabilidade_doenca(sintoma_intoxicacao_alimentar, Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_gastroenterite_viral, Sintomas, probBase_gastroenterite_viral, ProbFinal).
+probabilidade_gastroentrite_viral(Sintomas) :-
+    P = probBase_gastroenterite_viral,
+    probabilidade_doenca(sintoma_gastroenterite_viral, Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_sindrome_de_dumping, Sintomas, probBase_dumping, ProbFinal).
+probabilidade_dumping(Sintomas) :-
+    P = probBase_dumping,
+    probabilidade_doenca(sintoma_sindrome_de_dumping, Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_gastroparesia, Sintomas, probBase_gastroparesia, ProbFinal).
+probabilidade_gastroparesia(Sintomas) :-
+    probabilidade_doenca(probBase_gastroparesia, Sintomas, P, ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_ulcera_peptica Sintomas, probBase_ulcera_peptica, ProbFinal).
+probabilidade_ulcera_peptica(Sintomas) :-
+    P = probBase_ulcera_peptica,
+    probabilidade_doenca(sintoma_ulcera_peptica Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_pancreatite, Sintomas, probBase_pancreatite, ProbFinal).
+probabilidade_pancreatite(Sintomas) :-
+    P = probBase_pancreatite,
+    probabilidade_doenca(sintoma_pancreatite, Sintomas, P , ProbFinal).
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_infeccao_do_trato_urinario, Sintomas, probBase_infeccao_trato_urinario, ProbFinal).
+probabilidade_infeccao_trato_urinario(Sintomas) :-
+    P = probBase_infeccao_trato_urinario,
+    probabilidade_doenca(sintoma_infeccao_do_trato_urinario, Sintomas, P , ProbFinal).
 
 % Arquivos
 escrever_arquivo_prolog(NomeArquivo, Nome, Idade, Peso, Altura) :-
@@ -217,55 +113,55 @@ opcao_menu(3):-
     editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura),
 
 opcao_menu(4):-
-    write('OII').
+    apagar_paciente(vitor)
 
 opcao_menu(5):-
      write('Saindo...').
 
-% apagar_paciente(Nome) :-
-%     % Abrir o arquivo original para leitura
-%     open('pacientes', read, ArquivoOriginal),
-%     % Criar um arquivo temporário para escrita
-%     open('pacientes_temp', write, ArquivoTemp),
-%     % Ler cada linha do arquivo original e verificar se ela contém o paciente a ser excluído
-%     apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado),
-%     % Fechar os arquivos original e temporário
-%     close(ArquivoOriginal),
-%     close(ArquivoTemp),
-%     % Se o paciente não foi encontrado, não renomear o arquivo temporário
-%     (Encontrado ->
-%         % Apagar o arquivo original e renomear o arquivo temporário para o nome do arquivo original
-%         delete_file('pacientes'),
-%         rename_file('pacientes_temp', 'pacientes')
-%     ;
-%         % Apagar o arquivo temporário
-%         delete_file('pacientes_temp')
-%     ).
+apagar_paciente(Nome) :-
+    % Abrir o arquivo original para leitura
+    open('pacientes', read, ArquivoOriginal),
+    % Criar um arquivo temporário para escrita
+    open('pacientes_temp', write, ArquivoTemp),
+    % Ler cada linha do arquivo original e verificar se ela contém o paciente a ser excluído
+    apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado),
+    % Fechar os arquivos original e temporário
+    close(ArquivoOriginal),
+    close(ArquivoTemp),
+    % Se o paciente não foi encontrado, não renomear o arquivo temporário
+    (Encontrado ->
+        % Apagar o arquivo original e renomear o arquivo temporário para o nome do arquivo original
+        delete_file('pacientes'),
+        rename_file('pacientes_temp', 'pacientes')
+    ;
+        % Apagar o arquivo temporário
+        delete_file('pacientes_temp')
+    ).
 
-% apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado) :-
-%     % Ler a próxima linha do arquivo original
-%     read_line_to_codes(ArquivoOriginal, Linha),
-%     % Se a linha não for vazia (EOF), processá-la
-%     (Linha \= end_of_file ->
-%         % Converter a linha em formato de string
-%         atom_codes(AtomLinha, Linha),
-%         % Transformar a string em termo Prolog
-%         term_to_atom(Paciente, AtomLinha),
-%         % Verificar se o termo contém o paciente a ser excluído
-%         (Paciente = paciente(Nome, _, _, _) ->
-%             % Se o termo contém o paciente a ser excluído, marcar como encontrado e não copiar a linha para o arquivo temporário
-%             Encontrado = true
-%         ;
-%             % Se o termo não contém o paciente a ser excluído, copiar a linha para o arquivo temporário
-%             write(ArquivoTemp, Linha),
-%             write(ArquivoTemp, '\n')
-%         ),
-%         % Chamar recursivamente a função para processar a próxima linha
-%         apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado)
-%     ;
-%         % Se a linha for vazia (EOF), terminar o processamento
-%         Encontrado = false
-%     ).
+apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado) :-
+    % Ler a próxima linha do arquivo original
+    read_line_to_codes(ArquivoOriginal, Linha),
+    % Se a linha não for vazia (EOF), processá-la
+    (Linha \= end_of_file ->
+        % Converter a linha em formato de string
+        atom_codes(AtomLinha, Linha),
+        % Transformar a string em termo Prolog
+        term_to_atom(Paciente, AtomLinha),
+        % Verificar se o termo contém o paciente a ser excluído
+        (Paciente = paciente(Nome, _, _, _) ->
+            % Se o termo contém o paciente a ser excluído, marcar como encontrado e não copiar a linha para o arquivo temporário
+            Encontrado = true
+        ;
+            % Se o termo não contém o paciente a ser excluído, copiar a linha para o arquivo temporário
+            write(ArquivoTemp, Linha),
+            write(ArquivoTemp, '\n')
+        ),
+        % Chamar recursivamente a função para processar a próxima linha
+        apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado)
+    ;
+        % Se a linha for vazia (EOF), terminar o processamento
+        Encontrado = false
+    ).
 
 
 
