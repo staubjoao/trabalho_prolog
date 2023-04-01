@@ -1,3 +1,4 @@
+% SILI --> ALERGIA ALIMENTAR
 % conta a quantidade de sintomas associados a uma doença
 num_sintomas_doenca(Doenca, Count) :-
     findall(Sintoma, call(Doenca, Sintoma), ListaSintomas),
@@ -11,42 +12,44 @@ probabilidade_doenca(Doenca, Sintomas, ProbBase, ProbFinal) :-
     length(SintomasComuns, NumSintomasComuns),
     ProbFinal is (NumSintomasComuns/NumSintomas) * ProbBase.
 
-probabilidade_celiaca(Sintomas) :-
-    probabilidade_doenca(sintoma_celiaca, Sintomas, probBase_celiaca(P) , ProbFinal).
+probabilidade_celiaca(Sintomas, ProbFinal) :-
+    probBase_celiaca(P),
+    probabilidade_doenca(sintoma_celiaca, Sintomas, P , ProbFinal).
 
-probabilidade_sili(Sintomas) :-
-    P = probBase_sili,
+probabilidade_sili(Sintomas, ProbFinal) :-
+    probBase_sili(P),
     probabilidade_doenca(sintoma_sili, Sintomas, P , ProbFinal).
 
-probabilidade_alergia_alimentar(Sintomas) :-
-    P = probBase_alergia_alimentar,
+probabilidade_alergia_alimentar(Sintomas, ProbFinal) :-
+    probBase_alergia_alimentar(P),
     probabilidade_doenca(sintoma_alergia_alimentar, Sintomas, P , ProbFinal).
 
-probabilidade_intoxicacao_alimentar(Sintomas) :-
-    P = probBase_intoxicacao_alimentar,
+probabilidade_intoxicacao_alimentar(Sintomas, ProbFinal) :-
+    probBase_intoxicacao_alimentar(P),
     probabilidade_doenca(sintoma_intoxicacao_alimentar, Sintomas, P , ProbFinal).
 
-probabilidade_gastroentrite_viral(Sintomas) :-
-    P = probBase_gastroenterite_viral,
-    probabilidade_doenca(sintoma_gastroenterite_viral, Sintomas, P , ProbFinal).
+probabilidade_gastroentrite_viral(Sintomas, ProbFinal) :-
+    probBase_gastroenterite_viral(P),
+    probabilidade_doenca(sintoma_gastroenterite_viral, Sintomas, P, ProbFinal).
 
-probabilidade_dumping(Sintomas) :-
-    P = probBase_dumping,
+probabilidade_dumping(Sintomas, ProbFinal) :-
+    probBase_dumping(P),
     probabilidade_doenca(sintoma_sindrome_de_dumping, Sintomas, P , ProbFinal).
 
-probabilidade_gastroparesia(Sintomas) :-
+probabilidade_gastroparesia(Sintomas, ProbFinal) :-
+    probBase_gastroparesia(P),
     probabilidade_doenca(probBase_gastroparesia, Sintomas, P, ProbFinal).
 
-probabilidade_ulcera_peptica(Sintomas) :-
-    P = probBase_ulcera_peptica,
+probabilidade_ulcera_peptica(Sintomas, ProbFinal) :-
+    probBase_ulcera_peptica(P),
     probabilidade_doenca(sintoma_ulcera_peptica Sintomas, P , ProbFinal).
 
-probabilidade_pancreatite(Sintomas) :-
-    P = probBase_pancreatite,
+probabilidade_pancreatite(Sintomas, ProbFinal) :-
+    probBase_pancreatite(P),
     probabilidade_doenca(sintoma_pancreatite, Sintomas, P , ProbFinal).
 
-probabilidade_infeccao_trato_urinario(Sintomas) :-
-    P = probBase_infeccao_trato_urinario,
+probabilidade_infeccao_trato_urinario(Sintomas, ProbFinal) :-
+    probBase_infeccao_trato_urinario(P),
     probabilidade_doenca(sintoma_infeccao_do_trato_urinario, Sintomas, P , ProbFinal).
 
 % Arquivos
@@ -86,7 +89,7 @@ buscar_paciente(Nome, [_|Resto], Idade, Peso, Altura) :-
 % Criação do arquivo pacientes, caso ele não exista
 criar_arquivo_pacientes :-
     exists_file('pacientes.txt'),
-    write('O arquivo pacientes.txt já existe.'), nl.
+    write('O arquivo pacientes.txt ja existe.'), nl.
     
 criar_arquivo_pacientes :-
     \+ exists_file('pacientes.txt'),
@@ -171,7 +174,6 @@ apagar_paciente(Nome) :-
     % Escreve todas as cláusulas novamente, exceto a cláusula do paciente excluído
     (paciente(N, I, P, A), N \= Nome, write('paciente('), write(N), write(','), write(I), write(','), write(P), write(','), write(A), write(').'), nl, fail ; true),
     told.
-
 
 
 % func greff para apagar
