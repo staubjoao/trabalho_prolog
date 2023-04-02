@@ -1,3 +1,9 @@
+:- begin_tests(quadrado).
+    test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
+    test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
+    test(alergia_aliemntar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
+:- end_tests(quadrado). 
+
 % probabilidade base para cada doença
 probBase_celiaca(0.01).
 probBase_sili(0.05).
@@ -109,3 +115,12 @@ sintoma_infeccao_do_trato_urinario(urgencia_urinaria).
 sintoma_infeccao_do_trato_urinario(sangue_na_urina).
 sintoma_infeccao_do_trato_urinario(dor_abdominal).
 sintoma_infeccao_do_trato_urinario(febre).
+
+perguntas(["Você tem dor na área do abdômen?", "Você notou inchaço ou aumento do tamanho da sua barriga?", "Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?", "Você está tendo fezes soltas e frequentes?", "Você notou muco ou secreção nas suas fezes?", "Você sente que o seu intestino não está vazio mesmo após evacuar?", "Você se sente cansado ou sem energia?", "Você tem sentido ansiedade?", "Você tem sentido tristeza, desânimo ou falta de interesse em atividades que antes lhe agradavam?", "Você sente coceira na boca ou garganta?", "Você sente coceira na garganta?", "Você tem ido ao banheiro para urinar com mais frequência do que o normal?", "Você está tendo dificuldade para respirar?", "Você está vomitando ou teve vontade de vomitar recentemente?", "Você notou vermelhidão na sua pele?", "Você está com inchaço na sua face ou pescoço?"]).
+
+printaLista([]).    
+
+printaLista([H|T]):- 
+    write(H), nl,      
+    printaLista(T).   
+

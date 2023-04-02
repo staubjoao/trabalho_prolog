@@ -1,6 +1,5 @@
 import pygui
 
-
 class Perguntas:
     def __init__(self):
         self.index = 0

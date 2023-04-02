@@ -1,4 +1,4 @@
-% SILI --> ALERGIA ALIMENTAR
+
 % conta a quantidade de sintomas associados a uma doença
 num_sintomas_doenca(Doenca, Count) :-
     findall(Sintoma, call(Doenca, Sintoma), ListaSintomas),
@@ -98,6 +98,7 @@ criar_arquivo_pacientes :-
     told.
 
 main :-
+    set_prolog_flag(encoding, utf8),
     criar_arquivo_pacientes,
     menu.
 
@@ -120,7 +121,8 @@ opcao_menu(1) :-
         -> write('Não há pacientes cadastrados.'), nl
         ;  write('Pacientes cadastrados:'), nl,
            listar_pacientes(Pacientes)
-    ).
+    ),
+    menu.
 
 listar_pacientes([]).
 listar_pacientes([paciente(Nome, Idade, Peso, Altura)|Resto]) :-
@@ -140,15 +142,21 @@ opcao_menu(2):-
     write('Altura do novo paciente: '),
     read(Altura),
     escrever_arquivo_prolog('pacientes.txt', Nome, Idade, Peso, Altura),
-    writeln('Novo paciente adicionado com sucesso!').
+    writeln('Novo paciente adicionado com sucesso!'),
+    menu.
 
 opcao_menu(3):-
-    editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura).
+    editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura),
+    menu.
 
 opcao_menu(4):-
     write('Digite o nome do paciente: '),
     read(Nome),
-    excluir_paciente(Nome).
+    excluir_paciente(Nome),
+    menu.
+
+opcao_menu(5):-
+     write('Saindo...').
 
 excluir_paciente(Nome) :-
     apagar_paciente(Nome),
@@ -157,11 +165,6 @@ excluir_paciente(Nome) :-
 excluir_paciente(Nome) :-
     \+ apagar_paciente(Nome),
     write('Paciente não existe.'), nl.
-
-
-opcao_menu(5):-
-     write('Saindo...').
-
 
 apagar_paciente(Nome) :-
     % Lê os dados do arquivo
@@ -175,6 +178,8 @@ apagar_paciente(Nome) :-
     (paciente(N, I, P, A), N \= Nome, write('paciente('), write(N), write(','), write(I), write(','), write(P), write(','), write(A), write(').'), nl, fail ; true),
     told.
 
+formulario():-
+    % write('Você tem dor na área do abdômen? [s/n]'),
 
 % func greff para apagar
 % apagar_paciente(Nome) :-
