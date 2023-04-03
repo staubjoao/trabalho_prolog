@@ -1,0 +1,18 @@
+# SILI --> ALERGIA ALIMENTAR
+
+dor_abdominal: Você tem dor na área do abdômen?
+inchaco_abdominal: Você notou inchaço ou aumento do tamanho da sua barriga?
+diarreia: Você está tendo fezes soltas e frequentes?
+constipacao: Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?
+vomito: Você está vomitando ou teve vontade de vomitar recentemente?
+fadiga: Você se sente cansado ou sem energia?
+mucosidade_nas_fezes: Você notou muco ou secreção nas suas fezes?
+sensacao_de_incompleto_esvaziamento_do_intestino: Você sente que o seu intestino não está vazio mesmo após evacuar?
+ansiedade: Você tem sentido ansiedade?
+depressao: Você tem sentido tristeza, desânimo ou falta de interesse em atividades que antes lhe agradavam?
+coceira_na_boca: Você sente coceira na boca ou garganta?
+coceira_na_garganta: Você sente coceira na garganta?
+urinacao_frequente: Você tem ido ao banheiro para urinar com mais frequência do que o normal?
+dificuldade_respiratoria: Você está tendo dificuldade para respirar?
+vermelhidao_na_pele: Você notou vermelhidão na sua pele?
+inchaco_na_face: Você está com inchaço na sua face ou pescoço?

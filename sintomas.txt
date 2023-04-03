@@ -20,7 +20,6 @@ urinacao_frequente
 dificuldade_respiratoria
 vermelhidao_na_pele
 inchaco_na_face
-febril
 fraqueza
 dor_de_cabeca
 mal_estar_geral

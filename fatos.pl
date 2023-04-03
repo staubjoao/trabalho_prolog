@@ -56,7 +56,7 @@ sintoma_intoxicacao_alimentar(diarreia).
 sintoma_intoxicacao_alimentar(vomito).
 sintoma_intoxicacao_alimentar(dor_abdominal).
 sintoma_intoxicacao_alimentar(nausea).
-sintoma_intoxicacao_alimentar(febril).
+sintoma_intoxicacao_alimentar(febre).
 sintoma_intoxicacao_alimentar(fraqueza).
 sintoma_intoxicacao_alimentar(dor_de_cabeca).
 sintoma_intoxicacao_alimentar(mal_estar_geral).
