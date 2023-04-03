@@ -86,6 +86,7 @@ buscar_paciente(Nome, [paciente(Nome, Idade, Peso, Altura)|_], Idade, Peso, Altu
 buscar_paciente(Nome, [_|Resto], Idade, Peso, Altura) :-
     buscar_paciente(Nome, Resto, Idade, Peso, Altura).
 
+
 % Criação do arquivo pacientes, caso ele não exista
 criar_arquivo_pacientes :-
     exists_file('pacientes.txt'),
@@ -96,10 +97,12 @@ criar_arquivo_pacientes :-
     tell('pacientes.txt'),
     write(':- dynamic paciente/4.'), nl,
     told.
+    
 
 main :-
     set_prolog_flag(encoding, utf8),
     criar_arquivo_pacientes,
+    consult('fatos.pl'),
     menu.
 
 % consulta/alteração/inclusão/exclusão de pacientes
@@ -111,6 +114,7 @@ menu :-
     writeln('5 - Sair'),
     write('Opcao: '),
     read(Opcao),
+    nl,
     opcao_menu(Opcao).
 
 opcao_menu(1) :-
@@ -118,19 +122,14 @@ opcao_menu(1) :-
     findall(paciente(Nome, Idade, Peso, Altura), paciente(Nome, Idade, Peso, Altura), Pacientes),
     (
         Pacientes = []
-        -> write('Não há pacientes cadastrados.'), nl
-        ;  write('Pacientes cadastrados:'), nl,
+        -> write('Não há pacientes cadastrados.'), 
+        nl
+        ;  write('Pacientes cadastrados:'), 
+        nl,
            listar_pacientes(Pacientes)
     ),
     menu.
 
-listar_pacientes([]).
-listar_pacientes([paciente(Nome, Idade, Peso, Altura)|Resto]) :-
-    write(Nome), write(', '),
-    write(Idade), write(' anos, '),
-    write(Peso), write(' kg, '),
-    write(Altura), write(' cm'), nl,
-    listar_pacientes(Resto).
 
 opcao_menu(2):-
     write('Nome do novo paciente: '),
@@ -143,10 +142,11 @@ opcao_menu(2):-
     read(Altura),
     escrever_arquivo_prolog('pacientes.txt', Nome, Idade, Peso, Altura),
     writeln('Novo paciente adicionado com sucesso!'),
+    nl,
     menu.
 
 opcao_menu(3):-
-    editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura),
+    % editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura),
     menu.
 
 opcao_menu(4):-
@@ -170,7 +170,7 @@ apagar_paciente(Nome) :-
     % Lê os dados do arquivo
     retractall(paciente(_,_,_,_)),
     consult('pacientes.txt'),
-    retract(paciente(Nome, Idade, Peso, Altura)),
+    retract(paciente(Nome, _, _, _)),
     % Abre o arquivo para escrita
     tell('pacientes.txt'),
     write(':- dynamic paciente/4.'), nl,
@@ -178,7 +178,17 @@ apagar_paciente(Nome) :-
     (paciente(N, I, P, A), N \= Nome, write('paciente('), write(N), write(','), write(I), write(','), write(P), write(','), write(A), write(').'), nl, fail ; true),
     told.
 
-formulario():-
+listar_pacientes([]):-
+    nl.
+
+listar_pacientes([paciente(Nome, Idade, Peso, Altura)|Resto]) :-
+    write(Nome), write(', '),
+    write(Idade), write(' anos, '),
+    write(Peso), write(' kg, '),
+    write(Altura), write(' cm'), nl,
+    listar_pacientes(Resto).
+
+% formulario():-
     % write('Você tem dor na área do abdômen? [s/n]'),
 
 % func greff para apagar

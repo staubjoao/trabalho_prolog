@@ -14,6 +14,5 @@ Para executar o programa, é necessário estar no diretório dos arquivos e roda
 ```bash
     swipl
     consult('base_dados.pl').
-    consult('fatos.pl').
     main.
 ```
