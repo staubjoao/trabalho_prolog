@@ -21,13 +21,15 @@ print_list([H|T]) :- write(H), write(', '), print_list(T).
 % n to conseguindo concatenar nem com bomba nessa desgraça
 perguntar_sintomas(Sintomas) :-
     Sintomas = [],
+    write('Os seus sintomas são: '), nl,
     forall(formulario(Sintoma, Pergunta), (
-        write('Os seus sintomas são: '), print_list(Sintomas), nl,
-        write(Pergunta), write('(sim ou não): '),
+        print_list(Sintomas), 
+        write(Pergunta), write(' [s/n]: '),
         read_line_to_string(user_input, Resposta),
-        (Resposta == 'sim' -> 
+        (Resposta == 's' -> 
             write(Sintoma), nl, 
-            Sintomas = [Sintoma|Sintomas]
+            % Sintomas = [Sintoma|Sintomas]
+            append(Sintomas, [Sintoma], Sintomas,
         ;
             Sintomas = Sintomas
         )

@@ -103,6 +103,7 @@ main :-
     set_prolog_flag(encoding, utf8),
     criar_arquivo_pacientes,
     consult('fatos.pl'),
+    consult('questionario.pl'),
     menu.
 
 % consulta/alteração/inclusão/exclusão de pacientes

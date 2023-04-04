@@ -11,7 +11,7 @@ O projeto consiste na implementação de um sistema de diagnóstico médico com 
 
 ### Como rodar o programa
 Para executar o programa, é necessário estar no diretório dos arquivos e rodar os seguintes comandos:
-```bash
+``` bash
     swipl
     consult('base_dados.pl').
     main.
