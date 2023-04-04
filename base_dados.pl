@@ -42,11 +42,11 @@ probabilidade_dumping(Sintomas, ProbFinal) :-
 
 probabilidade_gastroparesia(Sintomas, ProbFinal) :-
     probBase_gastroparesia(P),
-    probabilidade_doenca(probBase_gastroparesia, Sintomas, P, ProbFinal).
+    probabilidade_doenca(sintoma_gastroparesia, Sintomas, P, ProbFinal).
 
 probabilidade_ulcera_peptica(Sintomas, ProbFinal) :-
     probBase_ulcera_peptica(P),
-    probabilidade_doenca(sintoma_ulcera_peptica Sintomas, P , ProbFinal).
+    probabilidade_doenca(sintoma_ulcera_peptica, Sintomas, P , ProbFinal).
 
 probabilidade_pancreatite(Sintomas, ProbFinal) :-
     probBase_pancreatite(P),
@@ -106,12 +106,10 @@ criar_arquivo_pacientes :-
 main :-
     criar_arquivo_pacientes,
     consult('fatos.pl'),
-    consult('questionario.pl'),
     menu.
 
 % consulta/alteração/inclusão/exclusão de pacientes
 menu :-
-    nl,
     writeln('1 - Consultar pacientes'),
     writeln('2 - Incluir paciente'),
     writeln('3 - Alterar paciente'),
@@ -124,7 +122,6 @@ menu :-
     opcao_menu(Opcao).
 
 opcao_menu(1) :-
-    retractall(paciente(_,_,_,_)),
     consult('pacientes.txt'),
     findall(paciente(Nome, Idade, Peso, Altura), paciente(Nome, Idade, Peso, Altura), Pacientes),
     (
@@ -133,10 +130,10 @@ opcao_menu(1) :-
         nl
         ;  write('Pacientes cadastrados:'), 
         nl,
-
            listar_pacientes(Pacientes)
     ),
     menu.
+
 
 opcao_menu(2):-
     write('Nome do novo paciente: '),
@@ -149,6 +146,7 @@ opcao_menu(2):-
     read(Altura),
     escrever_arquivo_prolog('pacientes.txt', Nome, Idade, Peso, Altura),
     writeln('Novo paciente adicionado com sucesso!'),
+    nl,
     menu.
 
 opcao_menu(3):-
@@ -221,8 +219,7 @@ excluir_paciente_arquivo(Nome) :-
     told.
 
 listar_pacientes([]):-
-    menu.
-
+    nl.
 listar_pacientes([paciente(Nome, Idade, Peso, Altura)|Resto]) :-
     write(Nome), write(', '),
     write(Idade), write(' anos, '),
