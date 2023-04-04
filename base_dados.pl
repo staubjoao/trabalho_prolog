@@ -97,9 +97,6 @@ criar_arquivo_pacientes :-
     tell('pacientes.txt'),
     write(':- dynamic paciente/4.'), nl,
     told.
-    
-
-cls :- write('\33\[2J').
 
 main :-
     set_prolog_flag(encoding, utf8),
