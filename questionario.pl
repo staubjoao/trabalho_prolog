@@ -1,19 +1,41 @@
 formulario(dor_abdominal, 'Você tem dor na área do abdômen?').
 formulario(inchaco_abdominal, 'Você notou inchaço ou aumento do tamanho da sua barriga?').
 formulario(diarreia, 'Você está tendo fezes soltas e frequentes?').
-% formulario(constipacao, 'Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?').
-% formulario(vomito, 'Você está vomitando ou teve vontade de vomitar recentemente?').
-% formulario(fadiga, 'Você se sente cansado ou sem energia?').
-% formulario(mucosidade_nas_fezes, 'Você notou muco ou secreção nas suas fezes?').
-% formulario(sensacao_de_incompleto_esvaziamento_do_intestino, 'Você sente que o seu intestino não está vazio mesmo após evacuar?').
-% formulario(ansiedade, 'Você tem sentido ansiedade?').
-% formulario(depressao, 'Você tem sentido tristeza, desânimo ou falta de interesse em atividades que antes lhe agradavam?').
-% formulario(coceira_na_boca, 'Você sente coceira na boca ou garganta?').
-% formulario(coceira_na_garganta, 'Você sente coceira na garganta?').
-% formulario(urinacao_frequente, 'Você tem ido ao banheiro para urinar com mais frequência do que o normal?').
-% formulario(dificuldade_respiratoria, 'Você está tendo dificuldade para respirar?').
-% formulario(vermelhidao_na_pele, 'Você notou vermelhidão na sua pele?').
-% formulario(inchaco_na_face, 'Você está com inchaço na sua face ou pescoço?').
+formulario(constipacao, 'Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?').
+formulario(vomito, 'Você está vomitando ou teve vontade de vomitar recentemente?').
+formulario(fadiga, 'Você se sente cansado ou sem energia?').
+formulario(mucosidade_nas_fezes, 'Você notou muco ou secreção nas suas fezes?').
+formulario(sensacao_de_incompleto_esvaziamento_do_intestino, 'Você sente que o seu intestino não está vazio mesmo após evacuar?').
+formulario(ansiedade, 'Você tem sentido ansiedade?').
+formulario(depressao, 'Você tem sentido tristeza, desânimo ou falta de interesse em atividades que antes lhe agradavam?').
+formulario(coceira_na_boca, 'Você sente coceira na boca ou garganta?').
+formulario(coceira_na_garganta, 'Você sente coceira na garganta?').
+formulario(urinacao_frequente, 'Você tem ido ao banheiro para urinar com mais frequência do que o normal?').
+formulario(dificuldade_respiratoria, 'Você está tendo dificuldade para respirar?').
+formulario(vermelhidao_na_pele, 'Você notou vermelhidão na sua pele?').
+formulario(inchaco_na_face, 'Você está com inchaço na sua face ou pescoço?').
+% greff hihihi
+formulario(febre, 'Você tem tido febre?').
+formulario(fraqueza, 'Você tem sentido fraqueza geral no corpo?').
+formulario(dor_de_cabeca, 'Você tem sentido dores de cabeça?').
+formulario(mal_estar_geral, 'Você tem sentido um mal-estar geral no corpo?').
+formulario(dor_muscular, 'Você tem sentido dores musculares?').
+formulario(sudorese, 'Você tem suado excessivamente?').
+formulario(palpitacao, 'Você tem sentido batimentos cardíacos acelerados ou irregulares?').
+formulario(tontura, 'Você tem sentido tontura ou vertigem?').
+formulario(desmaio, 'Você já desmaiou ou perdeu a consciência recentemente?').
+formulario(pirose, 'Você sente uma sensação de queimação no estômago ou no peito após comer?').
+formulario(saciedade_precoce, 'Você sente que fica satisfeito após comer quantidades menores de comida do que o normal?').
+formulario(distensao_abdominal, 'Você sente desconforto ou sensação de inchaço na região abdominal após comer?').
+formulario(queimacao, 'Você sente uma sensação de queimação na região abdominal ou na garganta?').
+formulario(perda_de_apetite, 'Você tem tido menos apetite do que o normal?').
+formulario(pancreatite_cronica, 'Você foi diagnosticado com pancreatite crônica recentemente?').
+formulario(diabetes, 'Você foi diagnosticado com diabetes recentemente?').
+formulario(dor_ao_urinar, 'Você sente dor ou desconforto ao urinar?').
+formulario(aumento_da_frequencia_urinaria, 'Você tem ido ao banheiro para urinar com mais frequência do que o normal?').
+formulario(urgencia_urinaria, 'Você tem sentido vontade urgente de urinar e às vezes não consegue segurar?').
+formulario(sangue_na_urina, 'Você notou sangue na sua urina?').
+
 
 % função para testes
 print_list([]).
@@ -56,4 +78,7 @@ probabilidades_doencas(Probabilidade) :-
     probabilidade_pancreatite(SintomasPaciente, P9),
     probabilidade_infeccao_trato_urinario(SintomasPaciente, P10),
 
-    Probabilidade = [P1, P2, P3, P4, P5, P6, P7, P8, P9, P10].
+    Aux = [P1, P2, P3, P4, P5, P6, P7, P8, P9, P10],
+    sorted(Aux, Aux2),
+    reverse(Aux2, Probabilidade).
+    

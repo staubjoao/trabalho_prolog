@@ -1,7 +1,3 @@
-:- dynamic(configurar_encoding/0).
-configurar_encoding :-
-    set_prolog_flag(encoding, utf8).
-
 % conta a quantidade de sintomas associados a uma doença
 num_sintomas_doenca(Doenca, Count) :-
     findall(Sintoma, call(Doenca, Sintoma), ListaSintomas),
@@ -106,10 +102,13 @@ criar_arquivo_pacientes :-
 main :-
     criar_arquivo_pacientes,
     consult('fatos.pl'),
-    menu.
+    consult('questionario.pl'),
+    consult('algoritmos.pl').
+    % menu.
 
 % consulta/alteração/inclusão/exclusão de pacientes
 menu :-
+    % set_prolog_flag(encoding, utf8),
     writeln('1 - Consultar pacientes'),
     writeln('2 - Incluir paciente'),
     writeln('3 - Alterar paciente'),
@@ -165,7 +164,8 @@ opcao_menu(5):-
     write('opção 5').
 
 opcao_menu(6):-
-     write('Saindo...').
+     write('Saindo...'),
+     halt.
 
 editar_paciente(Nome) :-
     editar_paciente_arquivo(Nome),
