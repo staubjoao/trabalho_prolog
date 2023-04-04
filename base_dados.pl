@@ -99,6 +99,8 @@ criar_arquivo_pacientes :-
     told.
     
 
+cls :- write('\33\[2J').
+
 main :-
     set_prolog_flag(encoding, utf8),
     criar_arquivo_pacientes,
@@ -146,7 +148,9 @@ opcao_menu(2):-
     menu.
 
 opcao_menu(3):-
-    % editar_paciente_arquivo(pacientes, Nome, NovaIdade, NovoPeso, NovaAltura),
+    write('Nome do paciente: '),
+    read(Nome),
+    editar_paciente_arquivo(Nome),
     menu.
 
 opcao_menu(4):-
@@ -158,15 +162,46 @@ opcao_menu(4):-
 opcao_menu(5):-
      write('Saindo...').
 
+editar_paciente(Nome) :-
+    editar_paciente_arquivo(Nome),
+    write('Paciente editado com sucesso.'), nl.
+
+editar_paciente(Nome) :-
+    \+ editar_paciente_arquivo(Nome),
+    write('Paciente não existe.'), nl.
+
+editar_paciente_arquivo(Nome) :-
+    retractall(paciente(_,_,_,_)),
+    consult('pacientes.txt'),
+    paciente(Nome, _, _, _),
+    retract(paciente(Nome, _, _, _)),
+    write('A nova idade do paciente: '),
+    read(NovaIdade),
+    write('O novo peso do paciente: '),
+    read(NovoPeso),
+    write('A nova altura do paciente: '),
+    read(NovaAltura),
+    asserta(paciente(Nome, NovaIdade, NovoPeso, NovaAltura)),
+    tell('pacientes.txt'),
+    write(':- dynamic paciente/4.'), nl,
+    (paciente(N, I, P, A),
+    (
+        N \= Nome, 
+            write('paciente('), write(N), write(','), write(I), write(','), write(P), write(','), write(A), write(').'), nl, fail 
+    )
+    ; 
+    write('paciente('), write(Nome), write(','), write(NovaIdade), write(','), write(NovoPeso), write(','), write(NovaAltura), write(').'), nl),
+    told.
+
 excluir_paciente(Nome) :-
-    apagar_paciente(Nome),
+    excluir_paciente_arquivo(Nome),
     write('Paciente removido com sucesso.'), nl.
 
 excluir_paciente(Nome) :-
-    \+ apagar_paciente(Nome),
+    \+ excluir_paciente_arquivo(Nome),
     write('Paciente não existe.'), nl.
 
-apagar_paciente(Nome) :-
+excluir_paciente_arquivo(Nome) :-
     % Lê os dados do arquivo
     retractall(paciente(_,_,_,_)),
     consult('pacientes.txt'),
@@ -180,60 +215,9 @@ apagar_paciente(Nome) :-
 
 listar_pacientes([]):-
     nl.
-
 listar_pacientes([paciente(Nome, Idade, Peso, Altura)|Resto]) :-
     write(Nome), write(', '),
     write(Idade), write(' anos, '),
     write(Peso), write(' kg, '),
     write(Altura), write(' cm'), nl,
     listar_pacientes(Resto).
-
-% formulario():-
-    % write('Você tem dor na área do abdômen? [s/n]'),
-
-% func greff para apagar
-% apagar_paciente(Nome) :-
-%     % Abrir o arquivo original para leitura
-%     open('pacientes', read, ArquivoOriginal),
-%     % Criar um arquivo temporário para escrita
-%     open('pacientes_temp', write, ArquivoTemp),
-%     % Ler cada linha do arquivo original e verificar se ela contém o paciente a ser excluído
-%     apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado),
-%     % Fechar os arquivos original e temporário
-%     close(ArquivoOriginal),
-%     close(ArquivoTemp),
-%     % Se o paciente não foi encontrado, não renomear o arquivo temporário
-%     (Encontrado ->
-%         % Apagar o arquivo original e renomear o arquivo temporário para o nome do arquivo original
-%         delete_file('pacientes'),
-%         rename_file('pacientes_temp', 'pacientes')
-%     ;
-%         % Apagar o arquivo temporário
-%         delete_file('pacientes_temp')
-%     ).
-
-% apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado) :-
-%     % Ler a próxima linha do arquivo original
-%     read_line_to_codes(ArquivoOriginal, Linha),
-%     write(Linha),
-%     % Se a linha não for vazia (EOF), processá-la
-%     (Linha \= end_of_file ->
-%         % Converter a linha em formato de string
-%         atom_codes(AtomLinha, Linha),
-%         % Transformar a string em termo Prolog
-%         term_to_atom(Paciente, AtomLinha),
-%         % Verificar se o termo contém o paciente a ser excluído
-%         (Paciente = paciente(Nome, _, _, _) ->
-%             % Se o termo contém o paciente a ser excluído, marcar como encontrado e não copiar a linha para o arquivo temporário
-%             Encontrado = true
-%         ;
-%             % Se o termo não contém o paciente a ser excluído, copiar a linha para o arquivo temporário
-%             write(ArquivoTemp, Linha),
-%             write(ArquivoTemp, '\n')
-%         ),
-%         % Chamar recursivamente a função para processar a próxima linha
-%         apagar_paciente_aux(Nome, ArquivoOriginal, ArquivoTemp, Encontrado)
-%     ;
-%         % Se a linha for vazia (EOF), terminar o processamento
-%         Encontrado = false
-%     ).

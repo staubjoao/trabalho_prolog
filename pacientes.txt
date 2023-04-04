@@ -1,4 +1,2 @@
 :- dynamic paciente/4.
-paciente(maria,20,67,165).
-paciente(molina,20,60,172).
-paciente(guru,20,50,160).
+paciente(joao,21,80,186).
