@@ -1,3 +1,6 @@
+:- dynamic(configurar_encoding/0).
+configurar_encoding :-
+    set_prolog_flag(encoding, utf8).
 
 % conta a quantidade de sintomas associados a uma doença
 num_sintomas_doenca(Doenca, Count) :-
@@ -12,6 +15,7 @@ probabilidade_doenca(Doenca, Sintomas, ProbBase, ProbFinal) :-
     length(SintomasComuns, NumSintomasComuns),
     ProbFinal is (NumSintomasComuns/NumSintomas) * ProbBase.
 
+% calculo da probabilidade por doença
 probabilidade_celiaca(Sintomas, ProbFinal) :-
     probBase_celiaca(P),
     probabilidade_doenca(sintoma_celiaca, Sintomas, P , ProbFinal).
@@ -52,7 +56,7 @@ probabilidade_infeccao_trato_urinario(Sintomas, ProbFinal) :-
     probBase_infeccao_trato_urinario(P),
     probabilidade_doenca(sintoma_infeccao_do_trato_urinario, Sintomas, P , ProbFinal).
 
-% Arquivos
+% escreve no arquivo
 escrever_arquivo_prolog(NomeArquivo, Nome, Idade, Peso, Altura) :-
     open(NomeArquivo, append, Stream),
     write(Stream, 'paciente('),
@@ -90,7 +94,7 @@ buscar_paciente(Nome, [_|Resto], Idade, Peso, Altura) :-
 % Criação do arquivo pacientes, caso ele não exista
 criar_arquivo_pacientes :-
     exists_file('pacientes.txt'),
-    write('O arquivo pacientes.txt ja existe.'), nl.
+    write('O arquivo pacientes.txt já existe.').
     
 criar_arquivo_pacientes :-
     \+ exists_file('pacientes.txt'),
@@ -98,8 +102,8 @@ criar_arquivo_pacientes :-
     write(':- dynamic paciente/4.'), nl,
     told.
 
+% função main, ela fica responsável por fazer a leitura dos outros arquivos
 main :-
-    set_prolog_flag(encoding, utf8),
     criar_arquivo_pacientes,
     consult('fatos.pl'),
     consult('questionario.pl'),
@@ -112,7 +116,8 @@ menu :-
     writeln('2 - Incluir paciente'),
     writeln('3 - Alterar paciente'),
     writeln('4 - Excluir paciente'),
-    writeln('5 - Sair'),
+    writeln('5 - Diagnóstico'),
+    writeln('6 - Sair'),
     write('Opcao: '),
     read(Opcao),
     nl,
@@ -159,6 +164,9 @@ opcao_menu(4):-
     menu.
 
 opcao_menu(5):-
+    write('opção 5').
+
+opcao_menu(6):-
      write('Saindo...').
 
 editar_paciente(Nome) :-
