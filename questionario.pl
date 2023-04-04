@@ -18,23 +18,45 @@ formulario(diarreia, 'Você está tendo fezes soltas e frequentes?').
 print_list([]).
 print_list([H|T]) :- write(H), write(', '), print_list(T).
 
-% n to conseguindo concatenar nem com bomba nessa desgraça
-perguntar_sintomas(Sintomas) :-
-    Sintomas = [],
-    write('Os seus sintomas são: '), nl,
+read_string(String) :-
+    read_line_to_codes(user_input, Codes),
+    string_codes(String, Codes).
+
+perguntar_sintomas :-
+    open('respostas.txt', write, Arquivo),
     forall(formulario(Sintoma, Pergunta), (
-        print_list(Sintomas), 
-        write(Pergunta), write(' [s/n]: '),
-        read_line_to_string(user_input, Resposta),
-        (Resposta == 's' -> 
-            write(Sintoma), nl, 
-            % Sintomas = [Sintoma|Sintomas]
-            append(Sintomas, [Sintoma], Sintomas,
+        write(Pergunta), write('(s ou n): '),
+        read_string(Resposta),
+        string_codes(Resposta, [Codigo|_]),
+        (Codigo =:= 115 ->
+            write(Arquivo, Sintoma)
+            % precisa saber se é o ultimo ou não, para caso não for colocar um ', ' se não coloca '\n'
+            % (Sintoma \== last(Sintomas) -> write(Arquivo, ','), write('teste'), nl ; true)
         ;
-            Sintomas = Sintomas
+            true
         )
-    )).
-    
+    )),
+    close(Arquivo).
+
+
+ler_sintomas_arquivo(Arquivo, Sintomas) :-
+    open(Arquivo, read, Stream),
+    ler_sintomas_arquivo(Stream, [], Sintomas),
+    close(Stream).
+
+ler_sintomas_arquivo(Stream, Sintomas, SintomasFinal) :-
+    read_line_to_codes(Stream, Line),
+    (Line = end_of_file ->
+        SintomasFinal = Sintomas
+    ;
+        atom_codes(Atom, Line),
+        atomic_list_concat(SintomaList, ',', Atom),
+        maplist(atom_string, SintomaList, SintomaStrings),
+        ler_sintomas_arquivo(Stream, [SintomaStrings|Sintomas], SintomasFinal)
+    ).
+
 imprime_formulario() :-
-    % perguntar_sintomas(Sintomas),
-    write('Os seus sintomas são: '), print_list([nausea, vomito, anemia, diarreia]), nl.
+    perguntar_sintomas.
+    % ler_sintomas_arquivo('respostas.txt', Sintomas),
+    % flatten(ListaSintomas, Sintomas),
+    % write('Os seus sintomas são: '), print_list(Sintomas), nl.
