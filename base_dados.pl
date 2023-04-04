@@ -107,6 +107,7 @@ main :-
 
 % consulta/alteração/inclusão/exclusão de pacientes
 menu :-
+    nl,
     writeln('1 - Consultar pacientes'),
     writeln('2 - Incluir paciente'),
     writeln('3 - Alterar paciente'),
@@ -118,6 +119,7 @@ menu :-
     opcao_menu(Opcao).
 
 opcao_menu(1) :-
+    retractall(paciente(_,_,_,_)),
     consult('pacientes.txt'),
     findall(paciente(Nome, Idade, Peso, Altura), paciente(Nome, Idade, Peso, Altura), Pacientes),
     (
@@ -126,6 +128,7 @@ opcao_menu(1) :-
         nl
         ;  write('Pacientes cadastrados:'), 
         nl,
+
            listar_pacientes(Pacientes)
     ),
     menu.
@@ -141,7 +144,6 @@ opcao_menu(2):-
     read(Altura),
     escrever_arquivo_prolog('pacientes.txt', Nome, Idade, Peso, Altura),
     writeln('Novo paciente adicionado com sucesso!'),
-    nl,
     menu.
 
 opcao_menu(3):-
@@ -211,7 +213,8 @@ excluir_paciente_arquivo(Nome) :-
     told.
 
 listar_pacientes([]):-
-    nl.
+    menu.
+
 listar_pacientes([paciente(Nome, Idade, Peso, Altura)|Resto]) :-
     write(Nome), write(', '),
     write(Idade), write(' anos, '),

@@ -19,7 +19,6 @@ formulario(inchaco_na_face, 'Você está com inchaço na sua face ou pescoço?')
 print_list([]).
 print_list([H|T]) :- write(H), write(', '), print_list(T).
 
-
 % imprime o formulario e coleta os sintomas que o paciente está sentindo
 perguntar_sintomas([], [], []).
 perguntar_sintomas([Pergunta | Perguntas], [Sintoma | Sintomas], [Sintoma | SintomasPaciente]) :-
