@@ -1,9 +1,9 @@
 formulario(dor_abdominal, 'Você tem dor na área do abdômen?').
 formulario(inchaco_abdominal, 'Você notou inchaço ou aumento do tamanho da sua barriga?').
 formulario(diarreia, 'Você está tendo fezes soltas e frequentes?').
-% formulario(constipacao, 'Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?').
-% formulario(vomito, 'Você está vomitando ou teve vontade de vomitar recentemente?').
-% formulario(fadiga, 'Você se sente cansado ou sem energia?').
+formulario(constipacao, 'Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?').
+formulario(vomito, 'Você está vomitando ou teve vontade de vomitar recentemente?').
+formulario(fadiga, 'Você se sente cansado ou sem energia?').
 % formulario(mucosidade_nas_fezes, 'Você notou muco ou secreção nas suas fezes?').
 % formulario(sensacao_de_incompleto_esvaziamento_do_intestino, 'Você sente que o seu intestino não está vazio mesmo após evacuar?').
 % formulario(ansiedade, 'Você tem sentido ansiedade?').
@@ -18,45 +18,28 @@ formulario(diarreia, 'Você está tendo fezes soltas e frequentes?').
 print_list([]).
 print_list([H|T]) :- write(H), write(', '), print_list(T).
 
-read_string(String) :-
-    read_line_to_codes(user_input, Codes),
-    string_codes(String, Codes).
 
-perguntar_sintomas :-
-    open('respostas.txt', write, Arquivo),
+% n to conseguindo concatenar nem com bomba nessa desgraça
+perguntar_sintomas(Sintomas) :-
+    Sintomas = [],
+    write('Os seus sintomas são: '), nl,
     forall(formulario(Sintoma, Pergunta), (
-        write(Pergunta), write('(s ou n): '),
-        read_string(Resposta),
-        string_codes(Resposta, [Codigo|_]),
-        (Codigo =:= 115 ->
-            write(Arquivo, Sintoma)
-            % precisa saber se é o ultimo ou não, para caso não for colocar um ', ' se não coloca '\n'
-            % (Sintoma \== last(Sintomas) -> write(Arquivo, ','), write('teste'), nl ; true)
+        % print_list(Sintomas), 
+        write(Pergunta), write(' [s/n]: '),
+        read_line_to_string(user_input, Resposta),
+        (Resposta =:= 's' ; Resposta =:= 'S' -> 
+            write('adicionado com sucesso'), nl, 
+            % Sintomas = [Sintoma|Sintomas]
+            append(Sintomas, [Sintoma], NovosSintomas),
+            Sintomas = NovosSintomas
         ;
-            true
+            write('nao foi adicionado'), nl, 
+            Sintomas = Sintomas  
+            )
         )
-    )),
-    close(Arquivo).
+    ),
+    write('Seus sintomas são: '), print_list(Sintomas), nl.
 
-
-ler_sintomas_arquivo(Arquivo, Sintomas) :-
-    open(Arquivo, read, Stream),
-    ler_sintomas_arquivo(Stream, [], Sintomas),
-    close(Stream).
-
-ler_sintomas_arquivo(Stream, Sintomas, SintomasFinal) :-
-    read_line_to_codes(Stream, Line),
-    (Line = end_of_file ->
-        SintomasFinal = Sintomas
-    ;
-        atom_codes(Atom, Line),
-        atomic_list_concat(SintomaList, ',', Atom),
-        maplist(atom_string, SintomaList, SintomaStrings),
-        ler_sintomas_arquivo(Stream, [SintomaStrings|Sintomas], SintomasFinal)
-    ).
-
-imprime_formulario() :-
-    perguntar_sintomas.
-    % ler_sintomas_arquivo('respostas.txt', Sintomas),
-    % flatten(ListaSintomas, Sintomas),
-    % write('Os seus sintomas são: '), print_list(Sintomas), nl.
+% imprime_formulario() :-
+%     perguntar_sintomas(Sintomas),
+%     write('Os seus sintomas são: '), print_list([nausea, vomito, anemia, diarreia]), nl.

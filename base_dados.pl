@@ -131,7 +131,6 @@ opcao_menu(1) :-
     ),
     menu.
 
-
 opcao_menu(2):-
     write('Nome do novo paciente: '),
     read(Nome),
