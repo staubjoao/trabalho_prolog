@@ -11,16 +11,16 @@
 :- end_tests(quadrado). 
 
 % probabilidade base para cada doença
-probBase_celiaca(0.01).
-probBase_sili(0.05).
-probBase_alergia_alimentar(0.02).
-probBase_intoxicacao_alimentar(0.10).
 probBase_gastroenterite_viral(0.15).
-probBase_dumping(0.03).
-probBase_gastroparesia(0.01).
+probBase_intoxicacao_alimentar(0.10).
 probBase_ulcera_peptica(0.05).
+probBase_sili(0.05).
+probBase_dumping(0.03).
 probBase_pancreatite(0.02).
+probBase_alergia_alimentar(0.02).
 probBase_infeccao_trato_urinario(0.01).
+probBase_celiaca(0.01).
+probBase_gastroparesia(0.01).
 
 % sintomas da doença celíaca
 sintoma_celiaca(dor_abdominal).

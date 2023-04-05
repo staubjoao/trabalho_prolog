@@ -2,8 +2,14 @@ formulario(dor_abdominal, 'Você tem dor na área do abdômen?').
 formulario(inchaco_abdominal, 'Você notou inchaço ou aumento do tamanho da sua barriga?').
 formulario(diarreia, 'Você está tendo fezes soltas e frequentes?').
 formulario(constipacao, 'Você está tendo dificuldade para evacuar ou suas fezes estão duras e secas?').
+formulario(nausea, 'Você sente enjoo ou tem vontade de vomitar?').
 formulario(vomito, 'Você está vomitando ou teve vontade de vomitar recentemente?').
+formulario(perda_de_peso, 'Você perdeu peso sem tentar?').
 formulario(fadiga, 'Você se sente cansado ou sem energia?').
+formulario(anemia, 'Você foi diagnosticado com anemia recentemente?').
+formulario(dores_nas_articulacoes, 'Você tem dores nas suas articulações?').
+formulario(erupcoes_cutaneas, 'Você notou manchas ou erupções na sua pele?').
+formulario(irritabilidade, 'Você está facilmente irritado ou com mau humor?').
 formulario(mucosidade_nas_fezes, 'Você notou muco ou secreção nas suas fezes?').
 formulario(sensacao_de_incompleto_esvaziamento_do_intestino, 'Você sente que o seu intestino não está vazio mesmo após evacuar?').
 formulario(ansiedade, 'Você tem sentido ansiedade?').
@@ -78,7 +84,10 @@ probabilidades_doencas(Probabilidade) :-
     probabilidade_pancreatite(SintomasPaciente, P9),
     probabilidade_infeccao_trato_urinario(SintomasPaciente, P10),
 
-    Aux = [P1, P2, P3, P4, P5, P6, P7, P8, P9, P10],
-    sorted(Aux, Aux2),
+
+    Aux = [(P1, celiaca), (P2, sili), (P3, alergia_alimentar), (P4, intoxicacao_alimentar), (P5, gastroenterite_viral), (P6, dumping), (P7, gastroparesia), (P8, ulcera_peptica), (P9, pancreatite), (P10, infeccao_trato_urinario)],
+    sort(Aux, Aux2),
     reverse(Aux2, Probabilidade).
-    
+
+reverse([], []).
+reverse([H|T], R) :- reverse(T, RT), append(RT, [H], R).
