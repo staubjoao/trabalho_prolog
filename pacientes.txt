@@ -1,5 +1,8 @@
 :- dynamic paciente/4.
-paciente(brancol,21,21312,232131).
-paciente(wagner,30,70,180).
-paciente(joao,231231,2131,2131).
-paciente(guras,12,2131,21312).
+paciente(joao,20,70,184).
+paciente(vitor,21,60,171).
+paciente(molina,20,63,174).
+paciente(gabriel,22,83,182).
+paciente(lucas,22,67,172).
+paciente(felipe,20,63,171).
+paciente(daniel,19,60,170).

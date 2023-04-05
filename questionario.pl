@@ -41,7 +41,6 @@ formulario(aumento_da_frequencia_urinaria, 'Você tem ido ao banheiro para urina
 formulario(urgencia_urinaria, 'Você tem sentido vontade urgente de urinar e às vezes não consegue segurar?').
 formulario(sangue_na_urina, 'Você notou sangue na sua urina?').
 
-
 % função para testes
 print_list([]).
 print_list([H|T]) :- write(H), write(', '), print_list(T).
@@ -53,11 +52,12 @@ read_string(String) :-
 % imprime o formulario e coleta os sintomas que o paciente está sentindo
 perguntar_sintomas([], [], []).
 perguntar_sintomas([Pergunta | Perguntas], [Sintoma | Sintomas], [Sintoma | SintomasPaciente]) :-
-    write(Pergunta), write('(s ou n): '),
+    write(Pergunta), write('[s/n]: '),
     read_string(Resposta),
     string_codes(Resposta, [Codigo|_]),
     (Codigo =:= 115 ; Codigo =:= 83),
     perguntar_sintomas(Perguntas, Sintomas, SintomasPaciente).
+    
 perguntar_sintomas([_ | Perguntas], [_ | Sintomas], SintomasPaciente) :-
     perguntar_sintomas(Perguntas, Sintomas, SintomasPaciente).
 
@@ -82,7 +82,6 @@ probabilidades_doencas(Probabilidade) :-
     probabilidade_ulcera_peptica(SintomasPaciente, P8),
     probabilidade_pancreatite(SintomasPaciente, P9),
     probabilidade_infeccao_trato_urinario(SintomasPaciente, P10),
-
 
     Aux = [(P1, celiaca), (P2, sili), (P3, alergia_alimentar), (P4, intoxicacao_alimentar), (P5, gastroenterite_viral), (P6, dumping), (P7, gastroparesia), (P8, ulcera_peptica), (P9, pancreatite), (P10, infeccao_trato_urinario)],
     sort(Aux, Aux2),

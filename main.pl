@@ -125,7 +125,7 @@ opcao_menu(1) :-
     (
         Pacientes = []
         -> write('Não há pacientes cadastrados.'), 
-        nl
+        nl,nl
         ;  write('Pacientes cadastrados:'), 
         nl,
            listar_pacientes(Pacientes)

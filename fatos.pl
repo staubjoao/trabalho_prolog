@@ -12,16 +12,16 @@
 :- end_tests(doencas). 
 
 % probabilidade base para cada doença
-probBase_gastroenterite_viral(0.15).
-probBase_intoxicacao_alimentar(0.10).
-probBase_ulcera_peptica(0.05).
-probBase_sili(0.05).
-probBase_dumping(0.03).
-probBase_pancreatite(0.02).
-probBase_alergia_alimentar(0.02).
-probBase_infeccao_trato_urinario(0.01).
-probBase_celiaca(0.01).
-probBase_gastroparesia(0.01).
+probBase_gastroenterite_viral(0.65).
+probBase_intoxicacao_alimentar(0.60).
+probBase_ulcera_peptica(0.55).
+probBase_sili(0.55).
+probBase_dumping(0.53).
+probBase_pancreatite(0.52).
+probBase_alergia_alimentar(0.52).
+probBase_infeccao_trato_urinario(0.51).
+probBase_celiaca(0.51).
+probBase_gastroparesia(0.51).
 
 % sintomas de gastroenterite viral
 sintoma_gastroenterite_viral(diarreia).
