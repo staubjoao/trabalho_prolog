@@ -2,3 +2,4 @@
 paciente(brancol,21,21312,232131).
 paciente(wagner,30,70,180).
 paciente(joao,231231,2131,2131).
+paciente(guras,12,2131,21312).

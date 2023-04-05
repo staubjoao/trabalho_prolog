@@ -16,3 +16,5 @@ Para executar o programa, é necessário estar no diretório dos arquivos e roda
     consult('base_dados.pl').
     main.
 ```
+
+Caso queira finalizar o programa, a opção 6 fechará o ambiente prolog.

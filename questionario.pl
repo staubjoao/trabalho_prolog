@@ -20,7 +20,6 @@ formulario(urinacao_frequente, 'Você tem ido ao banheiro para urinar com mais f
 formulario(dificuldade_respiratoria, 'Você está tendo dificuldade para respirar?').
 formulario(vermelhidao_na_pele, 'Você notou vermelhidão na sua pele?').
 formulario(inchaco_na_face, 'Você está com inchaço na sua face ou pescoço?').
-% greff hihihi
 formulario(febre, 'Você tem tido febre?').
 formulario(fraqueza, 'Você tem sentido fraqueza geral no corpo?').
 formulario(dor_de_cabeca, 'Você tem sentido dores de cabeça?').
