@@ -102,8 +102,7 @@ criar_arquivo_pacientes :-
 main :-
     criar_arquivo_pacientes,
     consult('fatos.pl'),
-    consult('questionario.pl'),
-    consult('algoritmos.pl').
+    consult('questionario.pl').
     % menu.
 
 % consulta/alteração/inclusão/exclusão de pacientes
