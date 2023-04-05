@@ -70,6 +70,7 @@ imprime_formulario(SintomasPaciente) :-
     perguntar_sintomas(Perguntas, Sintomas, SintomasPaciente).
 
 probabilidades_doencas(Probabilidade) :-
+    read_string(_),
     imprime_formulario(SintomasPaciente),
 
     probabilidade_celiaca(SintomasPaciente, P1),

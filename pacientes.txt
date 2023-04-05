@@ -1,5 +1,4 @@
 :- dynamic paciente/4.
-paciente(brancol,21,21312,232131).
-paciente(wagner,30,70,180).
-paciente(joao,231231,2131,2131).
 paciente(guras,12,2131,21312).
+paciente(wagner,31,71,181).
+paciente(joao,21,80,186).

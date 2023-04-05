@@ -134,3 +134,14 @@ doenca(gastroparesia).
 doenca(ulcera_peptica).
 doenca(pancreatite).
 doenca(infeccao_trato_urinario).
+
+imprime_doenca(X):- X = gastroenterite_viral, write('Gastroenterite viral').
+imprime_doenca(X):- X = intoxicacao_alimentar, write('Intoxicação alimentar').
+imprime_doenca(X):- X = ulcera_peptica, write('Úlcera péptica').
+imprime_doenca(X):- X = sili, write('Síndrome do intestino irritável').
+imprime_doenca(X):- X = dumping, write('Síndrome de dumping').
+imprime_doenca(X):- X = pancreatite, write('Pancreatite').
+imprime_doenca(X):- X = alergia_alimentar, write('Alergias alimentares').
+imprime_doenca(X):- X = infeccao_trato_urinario, write('Infecção do trato urinário').
+imprime_doenca(X):- X = celiaca, write('Doença celíaca').
+imprime_doenca(X):- X = gastroparesia, write('Gastroparesia').

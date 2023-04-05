@@ -120,12 +120,13 @@ menu :-
     opcao_menu(Opcao).
 
 opcao_menu(1) :-
+    retractall(paciente(_,_,_,_)),
     consult('pacientes.txt'),
     findall(paciente(Nome, Idade, Peso, Altura), paciente(Nome, Idade, Peso, Altura), Pacientes),
     (
         Pacientes = []
         -> write('Não há pacientes cadastrados.'), 
-        nl
+        nlgit a
         ;  write('Pacientes cadastrados:'), 
         nl,
            listar_pacientes(Pacientes)
@@ -134,6 +135,7 @@ opcao_menu(1) :-
 
 
 opcao_menu(2):-
+    nl,
     write('Nome do novo paciente: '),
     read(Nome),
     write('Idade do novo paciente: '),
@@ -160,11 +162,22 @@ opcao_menu(4):-
     menu.
 
 opcao_menu(5):-
-    write('O resultado do protótipo é apenas informativo, com isso, o paciente deve consultar um médico para obter um diagnóstico correto e preciso.').
+    write('O resultado do protótipo são apenas informativo, com isso, o paciente deve consultar um médico para obter um diagnóstico correto e preciso.'), nl, nl,
+    probabilidades_doencas(Probabilidade),
+    nl, write('Resultados: '), nl,
+    imprimir_probabilidades(Probabilidade),
+    nl, write('É importante ressaltar mais uma vez que o resultado do protótipo são apenas informativo, com isso, o paciente deve consultar um médico para obter um diagnóstico correto e preciso.'), nl, nl,
+    main.
 
 opcao_menu(6):-
-     write('Saindo...'),
-     halt.
+    write('Saindo...'),
+    halt.
+
+imprimir_probabilidades(Probabilidade) :-
+    maplist(imprimir_tupla, Probabilidade).
+
+imprimir_tupla((X,Y)) :-
+    imprime_doenca(Y), write(': '), format('~2f', X * 100), write(' %'), nl.
 
 editar_paciente(Nome) :-
     editar_paciente_arquivo(Nome),
