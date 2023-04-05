@@ -1,6 +1,12 @@
 :- begin_tests(quadrado).
     test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
     test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
+    test(alergia_aliementar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
+    test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
+    test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
+    test(alergia_aliemntar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
+    test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
+    test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
     test(alergia_aliemntar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
 :- end_tests(quadrado). 
 
