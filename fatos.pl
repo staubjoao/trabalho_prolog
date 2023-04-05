@@ -1,14 +1,15 @@
-:- begin_tests(quadrado).
+:- begin_tests(doencas).
+    test(gastroenterite_viral, R == 0.15) :- probabilidade_doenca(sintoma_gastroenterite_viral, [diarreia, vomito, nausea, dor_abdominal, febre, mal_estar_geral, dor_muscular, fadiga], 0.15, R).
     test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
     test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
-    test(alergia_aliementar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
-    test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
-    test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
-    test(alergia_aliemntar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
-    test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
-    test(sili, R == 0.05) :-  probabilidade_doenca(sintoma_sili, [dor_abdominal, inchaco_abdominal, constipacao, diarreia, mucosidade_nas_fezes, sensacao_de_incompleto_esvaziamento_do_intestino, fadiga, ansiedade, depressao], 0.05, R).
-    test(alergia_aliemntar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
-:- end_tests(quadrado). 
+    test(alergia_alimentar, R == 0.02) :- probabilidade_doenca(sintoma_alergia_alimentar, [coceira_na_boca, coceira_na_garganta, urinacao_frequente, diarreia, dificuldade_respiratoria, vomito, vermelhidao_na_pele, inchaco_na_face], 0.02, R).
+    test(intoxicacao_alimentar, R == 0.10) :- probabilidade_doenca(sintoma_intoxicacao_alimentar,  [diarreia, vomito, dor_abdominal, nausea, febre, fraqueza, dor_de_cabeca, mal_estar_geral], 0.10, R).
+    test(dumping, R == 0.03) :-  probabilidade_doenca(sintoma_sindrome_de_dumping, [sudorese, palpitacao, tontura, desmaio, diarreia, nausea, vomito, dor_abdominal, pirose], 0.03, R).
+    test(gastroparesia, R == 0.01) :- probabilidade_doenca(sintoma_gastroparesia, [saciedade_precoce, nausea, vomito, dor_abdominal, perda_de_peso, diarreia, constipacao, distensao_abdominal], 0.01, R).
+    test(ulcera_peptica, R == 0.05) :- probabilidade_doenca(sintoma_ulcera_peptica, [dor_abdominal, queimacao, nausea, vomito, perda_de_apetite, perda_de_peso], 0.05, R).
+    test(pancreatite, R == 0.02) :-  probabilidade_doenca(sintoma_pancreatite, [dor_abdominal, nausea, vomito, perda_de_apetite, pancreatite_cronica, diabetes], 0.02, R).
+    test(infeccao_trato_urinario, R == 0.01) :- probabilidade_doenca(sintoma_infeccao_do_trato_urinario, [dor_ao_urinar, aumento_da_frequencia_urinaria, urgencia_urinaria, sangue_na_urina, dor_abdominal, febre], 0.01, R).
+:- end_tests(doencas). 
 
 % probabilidade base para cada doença
 probBase_gastroenterite_viral(0.15).
@@ -21,6 +22,16 @@ probBase_alergia_alimentar(0.02).
 probBase_infeccao_trato_urinario(0.01).
 probBase_celiaca(0.01).
 probBase_gastroparesia(0.01).
+
+% sintomas de gastroenterite viral
+sintoma_gastroenterite_viral(diarreia).
+sintoma_gastroenterite_viral(vomito).
+sintoma_gastroenterite_viral(nausea).
+sintoma_gastroenterite_viral(dor_abdominal).
+sintoma_gastroenterite_viral(febre).
+sintoma_gastroenterite_viral(mal_estar_geral).
+sintoma_gastroenterite_viral(dor_muscular).
+sintoma_gastroenterite_viral(fadiga).
 
 % sintomas da doença celíaca
 sintoma_celiaca(dor_abdominal).
@@ -67,15 +78,6 @@ sintoma_intoxicacao_alimentar(fraqueza).
 sintoma_intoxicacao_alimentar(dor_de_cabeca).
 sintoma_intoxicacao_alimentar(mal_estar_geral).
 
-% sintomas de gastroenterite viral
-sintoma_gastroenterite_viral(diarreia).
-sintoma_gastroenterite_viral(vomito).
-sintoma_gastroenterite_viral(nausea).
-sintoma_gastroenterite_viral(dor_abdominal).
-sintoma_gastroenterite_viral(febre).
-sintoma_gastroenterite_viral(mal_estar_geral).
-sintoma_gastroenterite_viral(dor_muscular).
-sintoma_gastroenterite_viral(fadiga).
 
 % Síndrome de dumping
 sintoma_sindrome_de_dumping(sudorese).
