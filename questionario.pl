@@ -41,11 +41,6 @@ formulario(aumento_da_frequencia_urinaria, 'Você tem ido ao banheiro para urina
 formulario(urgencia_urinaria, 'Você tem sentido vontade urgente de urinar e às vezes não consegue segurar?').
 formulario(sangue_na_urina, 'Você notou sangue na sua urina?').
 
-
-% função para testes
-print_list([]).
-print_list([H|T]) :- write(H), write(', '), print_list(T).
-
 read_string(String) :-
     read_line_to_codes(user_input, Codes),
     string_codes(String, Codes).
@@ -69,7 +64,7 @@ imprime_formulario(SintomasPaciente) :-
     perguntas(Perguntas),
     perguntar_sintomas(Perguntas, Sintomas, SintomasPaciente).
 
-probabilidades_doencas(Probabilidade) :-
+probabilidades_doencas(Probabilidade, SintomasPaciente) :-
     read_string(_),
     imprime_formulario(SintomasPaciente),
 
