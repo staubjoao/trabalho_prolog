@@ -145,3 +145,86 @@ imprime_doenca(X):- X = alergia_alimentar, write('Alergias alimentares').
 imprime_doenca(X):- X = infeccao_trato_urinario, write('Infecção do trato urinário').
 imprime_doenca(X):- X = celiaca, write('Doença celíaca').
 imprime_doenca(X):- X = gastroparesia, write('Gastroparesia').
+
+sintomas_do_paciente(Paciente, Doenca, SintomasDoencaPaciente, NaoSintomasDoencaPaciente) :-
+    bagof(Sintoma, call(Doenca, Sintoma), SintomasDaDoenca),
+    subtract(SintomasDaDoenca, Paciente, NaoSintomasDoencaPaciente),
+    findall(Sintoma, (member(Sintoma, Paciente), call(Doenca, Sintoma)), SintomasDoencaPaciente).
+
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = gastroenterite_viral, 
+    sintomas_do_paciente(Paciente, sintoma_gastroenterite_viral, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = intoxicacao_alimentar, 
+    sintomas_do_paciente(Paciente, sintoma_intoxicacao_alimentar, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = ulcera_peptica, 
+    sintomas_do_paciente(Paciente, sintoma_ulcera_peptica, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = sili, 
+    sintomas_do_paciente(Paciente, sintoma_sili, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = dumping, 
+    sintomas_do_paciente(Paciente, sintoma_dumping, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = pancreatite, 
+    sintomas_do_paciente(Paciente, sintoma_pancreatite, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = alergia_alimentar, 
+    sintomas_do_paciente(Paciente, sintoma_alergia_alimentar, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = infeccao_trato_urinario, 
+    sintomas_do_paciente(Paciente, sintoma_infeccao_trato_urinario, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = celiaca, 
+    sintomas_do_paciente(Paciente, sintoma_celiaca, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+verifica_sintomas(Doenca, Paciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente):- 
+    Doenca = gastroparesia, 
+    sintomas_do_paciente(Paciente, sintoma_gastroparesia, SintomasDoencaPaciente, NaoSintomasDoencaPaciente).
+
+imprime_sintomas([]) :- write('\n').
+imprime_sintomas([H]) :- imrpime_sintoma(H), write('\n').
+imprime_sintomas([H|T]) :- imrpime_sintoma(H), write(', '), imprime_sintomas(T).
+
+imrpime_sintoma(X):- X = dor_abdominal, write('Dor abdominal').
+imrpime_sintoma(X):- X = inchaco_abdominal, write('Inchaço abdominal').
+imrpime_sintoma(X):- X = diarreia, write('Diarreia').
+imrpime_sintoma(X):- X = constipacao, write('Constipação').
+imrpime_sintoma(X):- X = nausea, write('Náusea').
+imrpime_sintoma(X):- X = vomito, write('Vômito').
+imrpime_sintoma(X):- X = perda_de_peso, write('Perda de peso').
+imrpime_sintoma(X):- X = fadiga, write('Fadiga').
+imrpime_sintoma(X):- X = anemia, write('Anemia').
+imrpime_sintoma(X):- X = dores_nas_articulacoes, write('Dores nas articulações').
+imrpime_sintoma(X):- X = erupcoes_cutaneas, write('Erupções cutâneas').
+imrpime_sintoma(X):- X = irritabilidade, write('Irritabilidade').
+imrpime_sintoma(X):- X = mucosidade_nas_fezes, write('Muco nas fezes').
+imrpime_sintoma(X):- X = sensacao_de_incompleto_esvaziamento_do_intestino, write('Sensação de incompleto esvaziamento do intestino').
+imrpime_sintoma(X):- X = ansiedade, write('Ansiedade').
+imrpime_sintoma(X):- X = depressao, write('Depressão').
+imrpime_sintoma(X):- X = coceira_na_boca, write('Coceira na boca').
+imrpime_sintoma(X):- X = coceira_na_garganta, write('Coceira na garganta').
+imrpime_sintoma(X):- X = urinacao_frequente, write('Urinação frequente').
+imrpime_sintoma(X):- X = dificuldade_respiratoria, write('Dificuldade respiratória').
+imrpime_sintoma(X):- X = vermelhidao_na_pele, write('Vermelhidão na pele').
+imrpime_sintoma(X):- X = inchaco_na_face, write('Inchaço na face').
+imrpime_sintoma(X):- X = fraqueza, write('Fraqueza').
+imrpime_sintoma(X):- X = dor_de_cabeca, write('Dor de cabeça').
+imrpime_sintoma(X):- X = mal_estar_geral, write('Mal-estar geral').
+imrpime_sintoma(X):- X = febre, write('Febre').
+imrpime_sintoma(X):- X = dor_muscular, write('Dor muscular').
+imrpime_sintoma(X):- X = sudorese, write('Sudorese').
+imrpime_sintoma(X):- X = palpitacao, write('Palpitação').
+imrpime_sintoma(X):- X = tontura, write('Tontura').
+imrpime_sintoma(X):- X = desmaio, write('Desmaio').
+imrpime_sintoma(X):- X = pirose, write('Azia').
+imrpime_sintoma(X):- X = saciedade_precoce, write('Saciedade precoce').
+imrpime_sintoma(X):- X = distensao_abdominal, write('Distensão abdominal').
+imrpime_sintoma(X):- X = queimacao, write('Queimação').
+imrpime_sintoma(X):- X = perda_de_apetite, write('Perda de apetite').
+imrpime_sintoma(X):- X = pancreatite_cronica, write('Pancreatite crônica').
+imrpime_sintoma(X):- X = diabetes, write('Diabetes').
+imrpime_sintoma(X):- X = dor_ao_urinar, write('Dor ao urinar').
+imrpime_sintoma(X):- X = aumento_da_frequencia_urinaria, write('Aumento da frequência urinária').
+imrpime_sintoma(X):- X = urgencia_urinaria, write('Urgência urinária').
+imrpime_sintoma(X):- X = sangue_na_urina, write('Sangue na urina').

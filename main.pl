@@ -125,12 +125,10 @@ opcao_menu(1) :-
     findall(paciente(Nome, Idade, Peso, Altura), paciente(Nome, Idade, Peso, Altura), Pacientes),
     (
         Pacientes = []
-        -> write('Não há pacientes cadastrados.'), 
-        nlgit a
+        -> 
+            write('Não há pacientes cadastrados.'), nlgit, a
         ;  
-        write('Pacientes cadastrados:'), 
-        nl,
-           listar_pacientes(Pacientes)
+            write('Pacientes cadastrados:'), nl, listar_pacientes(Pacientes)
     ),
     menu.
 
@@ -164,10 +162,16 @@ opcao_menu(4):-
 
 opcao_menu(5):-
     write('O resultado do protótipo são apenas informativo, com isso, o paciente deve consultar um médico para obter um diagnóstico correto e preciso.'), nl, nl,
-    probabilidades_doencas(Probabilidade),
+    probabilidades_doencas(Probabilidade, SintomasPaciente),
     nl, write('Resultados: '), nl,
     imprimir_probabilidades(Probabilidade),
-    nl, write('É importante ressaltar mais uma vez que o resultado do protótipo são apenas informativo, com isso, o paciente deve consultar um médico para obter um diagnóstico correto e preciso.'), nl, nl,
+    nl, write('É importante ressaltar mais uma vez que o resultado do protótipo são apenas informativo, com isso, o paciente deve consultar um médico para obter um diagnóstico correto e preciso.'), nl,
+    nth0(0, Probabilidade, Primeiro),
+    Primeiro = (_, X),
+    verifica_sintomas(X, SintomasPaciente, SintomasDoencaPaciente, NaoSintomasDoencaPaciente),
+    write('O paciente apresentou mais probabilidade de ter a seguinte doença: '), imprime_doenca(X), nl,
+    write('Com os seguintes sintomas: '), imprime_sintomas(SintomasDoencaPaciente),
+    write('Porém o paciente não apresentou os seguintes sintomas: '), imprime_sintomas(NaoSintomasDoencaPaciente), nl,
     main.
 
 opcao_menu(6):-
@@ -178,7 +182,7 @@ imprimir_probabilidades(Probabilidade) :-
     maplist(imprimir_tupla, Probabilidade).
 
 imprimir_tupla((X,Y)) :-
-    imprime_doenca(Y), write(': '), format('~2f', X * 100), write(' %'), nl.
+    imprime_doenca(Y), write(': '), format('~2f', X * 100), write('%'), nl.
 
 editar_paciente(Nome) :-
     editar_paciente_arquivo(Nome),
