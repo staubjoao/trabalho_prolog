@@ -13,6 +13,7 @@ O projeto consiste na implementação de um sistema de diagnóstico médico com 
 Para executar o programa, é necessário estar no diretório dos arquivos e rodar os seguintes comandos:
 ``` bash
     swipl
+    set_prolog_flag(encoding, utf8) (caso queira printr os acentos)
     consult('main.pl').
     main.
 ```

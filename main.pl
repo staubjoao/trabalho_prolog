@@ -100,7 +100,6 @@ criar_arquivo_pacientes :-
 
 % função main, ela fica responsável por fazer a leitura dos outros arquivos
 main :-
-    % set_prolog_flag(encoding, utf8).
     criar_arquivo_pacientes, nl,
     consult('fatos.pl'),
     consult('questionario.pl'),

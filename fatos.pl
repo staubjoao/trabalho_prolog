@@ -1,3 +1,4 @@
+:- use_module(library(plunit)).
 :- begin_tests(doencas).
     test(gastroenterite_viral, R == 0.15) :- probabilidade_doenca(sintoma_gastroenterite_viral, [diarreia, vomito, nausea, dor_abdominal, febre, mal_estar_geral, dor_muscular, fadiga], 0.15, R).
     test(celiaca, R == 0.003333333333333333) :- probabilidade_doenca(sintoma_celiaca, [nausea, vomito, anemia, diarreia], 0.01, R).
